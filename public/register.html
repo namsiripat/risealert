@@ -1,109 +1,138 @@
 <html>
+
 <head>
     <title>RiseAlert : Register</title>
 
 
-<script>
-function MemberList(){
-var width="450" , height="200";
-var left = (screen.width/2)-width/2;
-var top = (screen.height/2)-height/2;
-var styleStr = 'width=600,height=200,scrollbars=yes,status=yes,left='+left+',top='+top+',screenX='+left+',screenY='+top;
-window.open("popup.html","MemberList",styleStr);
-}
+    <script>
+        function MemberList() {
+            var width = "450",
+                height = "200";
+            var left = (screen.width / 2) - width / 2;
+            var top = (screen.height / 2) - height / 2;
+            var styleStr = 'width=600,height=200,scrollbars=yes,status=yes,left=' + left + ',top=' + top + ',screenX=' +
+                left + ',screenY=' + top;
+            window.open("popup.html", "MemberList", styleStr);
+        }
+        function postData(){
+            // console.log(window.document.myForm)
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    // document.getElementById("demo").innerHTML = this.responseText;
+                    console.log('success');
+                }
+            };
+            // var body = {
+            //     roomID: window.document.myForm.room.value,
+            //     name: window.document.myForm.name.value,
+            //     surname: window.document.myForm.surname.value,
+            //     sex: window.document.myForm.sex.value,
+            //     age: window.document.myForm.age.value,
+            //     diesase: window.document.myForm.disease.value,
+            //     currentDoctor: window.document.myForm.doctor.value
+            // }
+            // console.log(body)
+            xhttp.open("POST", "http://localhost:3000/register", true);
+            xhttp.send();
 
 
-function getMember(
-room,
-name,
-surname,
-sex,
-age,
-disease,
-doctor){
-window.document.myForm.room.value=room;
-window.document.myForm.name.value=name;
-window.document.myForm.surname.value=surname;
-window.document.myForm.sex.value =sex;
-window.document.myForm.age.value =age;
-window.document.myForm.disease.value =disease;
-window.document.myForm.doctor.value = doctor;
-}
-</script>
+            // var xhr = new XMLHttpRequest();
+            // var url = "url";
+            // xhr.open("POST", url, true);
+            // xhr.setRequestHeader("Content-Type", "application/json");
+            // xhr.onreadystatechange = function () {
+            //     if (xhr.readyState === 4 && xhr.status === 200) {
+            //         var json = JSON.parse(xhr.responseText);
+            //         console.log(json.email + ", " + json.password);
+            //     }
+            // };
+            // var data = JSON.stringify({"email": "hey@mail.com", "password": "101010"});
+            // xhr.send(data);
+        }
+        function getMember(
+            room,
+            name,
+            surname,
+            sex,
+            age,
+            disease,
+            doctor) {
+            window.document.myForm.room.value = room;
+            window.document.myForm.name.value = name;
+            window.document.myForm.surname.value = surname;
+            window.document.myForm.sex.value = sex;
+            window.document.myForm.age.value = age;
+            window.document.myForm.disease.value = disease;
+            window.document.myForm.doctor.value = doctor;
+        }
+    </script>
 
 </head>
+
 <body>
-<center>
+    <center>
 
-<form id="myForm" name="myForm" method="post" action="" >
-<fieldset>
-<legend>Register Form</legend><br />
+        <div id="myForm" name="myForm">
+        <!-- <form id="myForm" name="myForm"> -->
+            <fieldset>
+                <legend>Register Form</legend>
+                <br />
 
-<table>
-<tr>
-<td>ห้องหมายเลข</td>
-<td><select>
-    <option selected>---เลือกหมายเลขห้อง---
-        <option value=1>1
-        <option value=2>2
-        <option value=3>3
-        <option value=4>4
-        <option value=5>5
-        <option value=6>6
-        <option value=7>7
-        <option value=8>8
-        <option value=9>9
-        <option value=10>10
-        <option value=11>11
-        <option value=12>12
-        <option value=13>13
-        <option value=14>14
-        <option value=15>15
-        <option value=16>16
-        <option value=17>17
-        <option value=18>18
-</select>
+                <table>
+                    <tr>
+                        <td>ชื่อ</td>
+                        <td>
+                            <input id="name" name="name" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>นามสกุล</td>
+                        <td>
+                            <input id="surname" name="surname">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>เพศ</td>
+                        <td>
+                            <input type="radio" name="sex" value="Male">ชาย
+                            <input type="radio" name="sex" value="Female">หญิง
+                    </tr>
+                    <tr>
+                        <td>อายุ</td>
+                        <td>
+                            <input id="age" name="age" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>โรค</td>
+                        <td>
+                            <input id="disease" name="disease" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>แพทย์ผู้รับผิดชอบ</td>
+                        <td>
+                            <input id="doctor" name="doctor" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <input type="submit" value="Save" onclick="postData();" />
+                            <input type="reset" value="Cancel" />
+                            <tr>
+                                <td>
+                                    <a href="index.html">Back</a>
+                                </td>
+                            </tr>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+        <!-- </form> -->
+        </div>
 
-</td>
-</tr>
-<tr>
-<td>ชื่อ</td>
-<td><input id="name" name="name"/></td>
-</tr>
-<tr>
-<td>นามสกุล</td>
-<td><input id="surname" name="surname"></td>
-</tr>
-<tr>
-<td>เพศ</td>
-<td>
-<input type="radio" name="sex" value="0">ชาย
-<input type="radio" name="sex" value="0">หญิง
-</tr>
-<tr>
-<td>อายุ</td>
-<td><input id="age" name="age" /></td>
-</tr>
-<tr>
-<td>โรค</td>
-<td><input id="disease" name="disease" /></td>
-</tr>
-<tr>
-<td>แพทย์ผู้รับผิดชอบ</td>
-<td><input id="doctor" name="doctor" /></td>
-</tr>
-<tr>
-<td colspan="2">
-<input type="submit" value="Save" />
-<input type="reset" value="Cancel" />
-<tr><td>
-<a href="index.html">Back</a>
-</td></tr>
-</td>
-</tr>
-</table>
-</fieldset>
-</form>
-</center>
+    </center>
 </body>
+
 </html>
