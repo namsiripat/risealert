@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>RiseAlert : Home</title>
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+
+</head>
+
+<body>
+	<div id='header' class="flexBox">
+		<div id='nav' class="flexBox">
+			<logo class="flexBox">
+				<span class="flexBox">RiseAlert</span>
+			</logo>
+			<div id='menu'>
+				<ul class="flexBox">
+					<li class="flexBox">
+						<a href="#home">Home</a>
+					</li>
+					<li class="flexBox">
+					<a href="register.html">Register</a>
+					</li>
+					<li class="flexBox">
+						<a href="#other">Other</a>
+					</li>
+					<li class="flexBox">
+						<img src="css/image/searchu-white.svg">
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+				<div id='content' class="flexBox">
+					<div id='Room1' class="patients">
+						<span>Room No.1</span>
+						<img id='img1src' src="css/image/bed.svg" width="200" height="200">
+						<audio id="alert" src="music/alert.mp3"></audio>
+
+					</div>
+					<div id='Room2' class="patients">
+						<span>Room No.2</span>
+						<img id='img2src' src="css/image/bed.svg" width="200" height="200">
+						
+					</div>
+					<div id='Room3' class="patients">
+						<span>Room No.3</span>
+						<img src="css/image/bed.svg" width="200" height="200">
+					</div>
+					<div id='Room4' class="patients" width="200" height="200">
+						<span>Room No.4</span>
+						<img src="css/image/bed.svg" width="200" height="200">
+					</div>
+					<div id='Room5' class="patients">
+						<span>Room No.5</span>
+						<img src="css/image/bed.svg" width="200" height="200">
+					</div>
+					<div id='Room6' class="patients">
+						<span>Room No.6</span>
+						<img src="css/image/bed.svg" width="200" height="200">
+					</div>
+					<div id='Room7' class="patients">
+						<span>Room No.7</span>
+						<img src="css/image/bed.svg" width="200" height="200">
+					</div>
+					<div id='Room8' class="patients">
+						<span>Room No.8</span>
+						<img src="css/image/bed.svg" width="200" height="200">
+					</div>
+					<div id='Room9' class="patients">
+						<span>Room No.9</span>
+						<img src="css/image/bed.svg" width="200" height="200">
+					</div>
+					<div id='Room10' class="patients">
+						<span>Room No.10</span>
+						<img src="css/image/bed.svg" width="200" height="200">
+					</div>
+					<div id='Room11' class="patients">
+						<span>Room No.11</span>
+						<img src="css/image/bed.svg" width="200" height="200">
+					</div>
+					<div id='Room12' class="patients">
+						<span>Room No.12</span>
+						<img src="css/image/bed.svg" width="200" height="200">
+					</div>
+					<div id='Room13' class="patients">
+						<span>Room No.13</span>
+						<img src="css/image/bed.svg" width="200" height="200">
+					</div>
+					<div id='Room14' class="patients">
+						<span>Room No.14</span>
+						<img src="css/image/bed.svg" width="200" height="200">
+					</div>
+					<div id='Room15' class="patients">
+						<span>Room No.15</span>
+						<img src="css/image/bed.svg" width="200" height="200">
+					</div>
+					<div id='Room16' class="patients">
+						<span>Room No.16</span>
+						<img src="css/image/bed.svg" width="200" height="200">
+					</div>
+					<div id='Room17' class="patients" width="200" height="200">
+						<span>Room No.17</span>
+						<img src="css/image/bed.svg" width="200" height="200">
+					</div>
+					<div id='Room18' class="patients">
+						<span>Room No.18</span>
+						<img src="css/image/bed.svg" width="200" height="200">
+					</div>
+</body>
+
+<script src="socket.io/socket.io.js"></script>
+<script>
+	var socket = io.connect();
+
+	socket.on('accelData', function (accelData) {
+		var room1 = document.getElementById('Room1')
+		var room2 = document.getElementById('Room2')
+		var img1 = document.getElementById('img1src')
+		var img2 = document.getElementById('img2src')
+		console.log(accelData  )
+		if (accelData.status === 'error') {
+			if (accelData.id == 1) {
+				img1.src = "css/image/away.svg";
+				room1.style.background='red';
+				room1.style.borderRadius = '25px'
+				document.getElementById('alert').play();
+			} else if (accelData.id == 2) {
+				img2.src = "css/image/away.svg";
+				room2.style.background='red';
+				room2.style.borderRadius = '25px';
+				document.getElementById('alert').play();
+			}
+			
+		} else { 
+			if (accelData.id == 1) {
+				img1.src = "css/image/bed.svg";
+				room1.style.background='transparent';
+			} else if (accelData.id == 2) {
+				img2.src = "css/image/bed.svg";
+				room2.style.background = 'transparent';
+			}
+			
+		}
+		socket.emit('accelData', "got accelData");
+	});
+</script>
