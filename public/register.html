@@ -14,57 +14,47 @@
                 left + ',screenY=' + top;
             window.open("popup.html", "MemberList", styleStr);
         }
-        function postData(){
-            // console.log(window.document.myForm)
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    // document.getElementById("demo").innerHTML = this.responseText;
-                    console.log('success');
+        function postData() {
+            var xhr = new XMLHttpRequest();
+            var url = "http://localhost:3000/register";
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // var json = JSON.parse(xhr.responseText);
+                    // console.log(json.email + ", " + json.password);
+                    window.location.href = "/"
                 }
             };
-            // var body = {
-            //     roomID: window.document.myForm.room.value,
-            //     name: window.document.myForm.name.value,
-            //     surname: window.document.myForm.surname.value,
-            //     sex: window.document.myForm.sex.value,
-            //     age: window.document.myForm.age.value,
-            //     diesase: window.document.myForm.disease.value,
-            //     currentDoctor: window.document.myForm.doctor.value
-            // }
-            // console.log(body)
-            xhttp.open("POST", "http://localhost:3000/register", true);
-            xhttp.send();
-
-
-            // var xhr = new XMLHttpRequest();
-            // var url = "url";
-            // xhr.open("POST", url, true);
-            // xhr.setRequestHeader("Content-Type", "application/json");
-            // xhr.onreadystatechange = function () {
-            //     if (xhr.readyState === 4 && xhr.status === 200) {
-            //         var json = JSON.parse(xhr.responseText);
-            //         console.log(json.email + ", " + json.password);
+            // let radio = document.getElementsByName('sex');
+            let radioButton = Array.from(document.getElementsByName('sex'))
+            // let sex = radioButton.find(button => button.checked === true)
+            // alert(sex.value)
+            // console.log(radios);
+            // let radio = radioButton.filter(button => button.checked === true);
+            // console.log(radio[0]);
+            // let radioButton = radios.filter(button => button.checked === true);
+            // console.log(radios);
+            // var radios = document.getElementsByName('sex');
+            // let sex = null;
+            // for (var i = 0, length = radios.length; i < length; i++) {
+            //     if (radios[i].checked) {
+            //         sex = radios[i].value;
+            //         alert(radios[i].value);
+            //         break;
             //     }
-            // };
-            // var data = JSON.stringify({"email": "hey@mail.com", "password": "101010"});
-            // xhr.send(data);
-        }
-        function getMember(
-            room,
-            name,
-            surname,
-            sex,
-            age,
-            disease,
-            doctor) {
-            window.document.myForm.room.value = room;
-            window.document.myForm.name.value = name;
-            window.document.myForm.surname.value = surname;
-            window.document.myForm.sex.value = sex;
-            window.document.myForm.age.value = age;
-            window.document.myForm.disease.value = disease;
-            window.document.myForm.doctor.value = doctor;
+            // }
+            var e = document.getElementById("roomID");
+            var data = JSON.stringify({
+                "roomID": e.options[e.selectedIndex].value,
+                "name": document.getElementById("name").value,
+                "surname": document.getElementById("surname").value,
+                "age": document.getElementById("age").value,
+                "disease": document.getElementById("disease").value,
+                "doctor": document.getElementById("doctor").value,
+                "sex": radioButton.find(button => button.checked === true).value
+            });
+            xhr.send(data);
         }
     </script>
 
@@ -80,6 +70,33 @@
                 <br />
 
                 <table>
+                    <tr>
+                        <td>หมายเลขห้อง</td>
+                        <td>
+                            <select id="roomID">
+                                <option selected>---เลือกหมายเลขห้อง---</option>
+                                <option value=1>1</option>
+                                <option value=2>2</option>
+                                <option value=3>3</option>
+                                <option value=4>4</option>
+                                <option value=5>5</option>
+                                <option value=6>6</option>
+                                <option value=7>7</option>
+                                <option value=8>8</option>
+                                <option value=9>9</option>
+                                <option value=10>10</option>
+                                <option value=11>11</option>
+                                <option value=12>12</option>
+                                <option value=13>13</option>
+                                <option value=14>14</option>
+                                <option value=15>15</option>
+                                <option value=16>16</option>
+                                <option value=17>17</option>
+                                <option value=18>18</option>
+                            </select>
+                        </td>
+                    </tr>
+
                     <tr>
                         <td>ชื่อ</td>
                         <td>
@@ -97,6 +114,7 @@
                         <td>
                             <input type="radio" name="sex" value="Male">ชาย
                             <input type="radio" name="sex" value="Female">หญิง
+                        </td>
                     </tr>
                     <tr>
                         <td>อายุ</td>

@@ -8,7 +8,8 @@ var userSchema = new Schema({
     name: String,
     surname: String,
     disease: String,
-    currentDoctor: String,
+    doctor: String,
+    sex: String,
     createdDate:{
         type: Date,
         default :Date.now
