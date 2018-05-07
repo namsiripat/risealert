@@ -36,17 +36,35 @@ app.get('/patient', function (req, res) {
     var query = { sort: { name: 1 } }
     User.find({}, null, query, function(err, user){
         if(err) throw err
-        console.log(user)
+        // console.log(user)
         res.json(user)
     })
 })
 
 app.post('/register', function (req, res) {
+    // let newUser = new User(req.body)
+    // newUser.save(function(err, user){
+    //     if(err) throw err
+    //     res.status(200).json(user)
+    // })
     let newUser = new User(req.body)
-    newUser.save(function(err, user){
-        if(err) throw err
-        res.status(200).json(user)
-    })
+    console.log(newUser)
+    User.findOneAndUpdate(
+        { roomID: req.body.roomID },
+        { $set: req.body },
+        (err, doc) => {
+            if (doc === null) {
+                
+                let newUser = new User(req.body)
+                newUser.save(function(err, user){
+                    if(err) throw err
+                    res.status(200).json(user)
+                })
+            } else {
+                res.json(doc)
+            }
+        }
+    )
 })
 
 app.post('/accel/:id', function (req, res) {
