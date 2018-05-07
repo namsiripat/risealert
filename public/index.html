@@ -39,112 +39,159 @@
 						<span>Room No.1</span>
 						<img id='img1src' src="css/image/bed.svg" width="200" height="200">
 						<audio id="alert" src="music/alert.mp3"></audio>
-
+						<span class="tooltiptext" id='tooltiptext1'>Empty Bed</span>
 					</div>
 					<div id='Room2' class="patients">
 						<span>Room No.2</span>
 						<img id='img2src' src="css/image/bed.svg" width="200" height="200">
-						
+						<span class="tooltiptext" id='tooltiptext2'>Empty Bed</span>
 					</div>
 					<div id='Room3' class="patients">
 						<span>Room No.3</span>
 						<img src="css/image/bed.svg" width="200" height="200">
+						<span class="tooltiptext" id='tooltiptext3'>Empty Bed</span>
 					</div>
 					<div id='Room4' class="patients" width="200" height="200">
 						<span>Room No.4</span>
 						<img src="css/image/bed.svg" width="200" height="200">
+						<span class="tooltiptext" id='tooltiptext4'>Empty Bed</span>
+
 					</div>
 					<div id='Room5' class="patients">
 						<span>Room No.5</span>
 						<img src="css/image/bed.svg" width="200" height="200">
+						<span class="tooltiptext" id='tooltiptext5'>Empty Bed</span>
 					</div>
 					<div id='Room6' class="patients">
 						<span>Room No.6</span>
 						<img src="css/image/bed.svg" width="200" height="200">
+						<span class="tooltiptext" id='tooltiptext6'>Empty Bed</span>
 					</div>
 					<div id='Room7' class="patients">
 						<span>Room No.7</span>
 						<img src="css/image/bed.svg" width="200" height="200">
+						<span class="tooltiptext" id='tooltiptext7'>Empty Bed</span>
 					</div>
 					<div id='Room8' class="patients">
 						<span>Room No.8</span>
 						<img src="css/image/bed.svg" width="200" height="200">
+						<span class="tooltiptext" id='tooltiptext8'>Empty Bed</span>
 					</div>
 					<div id='Room9' class="patients">
 						<span>Room No.9</span>
 						<img src="css/image/bed.svg" width="200" height="200">
+						<span class="tooltiptext" id='tooltiptext9'>Empty Bed</span>
 					</div>
 					<div id='Room10' class="patients">
 						<span>Room No.10</span>
 						<img src="css/image/bed.svg" width="200" height="200">
+						<span class="tooltiptext" id='tooltiptext10'>Empty Bed</span>
 					</div>
 					<div id='Room11' class="patients">
 						<span>Room No.11</span>
 						<img src="css/image/bed.svg" width="200" height="200">
+						<span class="tooltiptext" id='tooltiptext11'>Empty Bed</span>
 					</div>
 					<div id='Room12' class="patients">
 						<span>Room No.12</span>
 						<img src="css/image/bed.svg" width="200" height="200">
+						<span class="tooltiptext" id='tooltiptext12'>Empty Bed</span>
 					</div>
 					<div id='Room13' class="patients">
 						<span>Room No.13</span>
 						<img src="css/image/bed.svg" width="200" height="200">
+						<span class="tooltiptext" id='tooltiptext13'>Empty Bed</span>
 					</div>
 					<div id='Room14' class="patients">
 						<span>Room No.14</span>
 						<img src="css/image/bed.svg" width="200" height="200">
+						<span class="tooltiptext" id='tooltiptext14'>Empty Bed</span>
 					</div>
 					<div id='Room15' class="patients">
 						<span>Room No.15</span>
 						<img src="css/image/bed.svg" width="200" height="200">
+						<span class="tooltiptext" id='tooltiptext15'>Empty Bed</span>
 					</div>
 					<div id='Room16' class="patients">
 						<span>Room No.16</span>
 						<img src="css/image/bed.svg" width="200" height="200">
+						<span class="tooltiptext" id='tooltiptext16'>Empty Bed</span>
 					</div>
 					<div id='Room17' class="patients" width="200" height="200">
 						<span>Room No.17</span>
 						<img src="css/image/bed.svg" width="200" height="200">
+						<span class="tooltiptext" id='tooltiptext17'>Empty Bed</span>
 					</div>
 					<div id='Room18' class="patients">
 						<span>Room No.18</span>
 						<img src="css/image/bed.svg" width="200" height="200">
+						<span class="tooltiptext" id='tooltiptext18'>Empty Bed</span>
 					</div>
 </body>
 
 <script src="socket.io/socket.io.js"></script>
 <script>
+	
+	window.onload = function () {
+		getPatient();
+	};
 	var socket = io.connect();
 
 	socket.on('accelData', function (accelData) {
-		var room1 = document.getElementById('Room1')
-		var room2 = document.getElementById('Room2')
-		var img1 = document.getElementById('img1src')
-		var img2 = document.getElementById('img2src')
-		console.log(accelData  )
+
+		console.log(accelData)
+		var room = document.getElementById('Room' + accelData.id);
+		var img = document.getElementById('img' + accelData.id + 'src');
 		if (accelData.status === 'error') {
-			if (accelData.id == 1) {
-				img1.src = "css/image/away.svg";
-				room1.style.background='red';
-				room1.style.borderRadius = '25px'
-				document.getElementById('alert').play();
-			} else if (accelData.id == 2) {
-				img2.src = "css/image/away.svg";
-				room2.style.background='red';
-				room2.style.borderRadius = '25px';
-				document.getElementById('alert').play();
-			}
-			
-		} else { 
-			if (accelData.id == 1) {
-				img1.src = "css/image/bed.svg";
-				room1.style.background='transparent';
-			} else if (accelData.id == 2) {
-				img2.src = "css/image/bed.svg";
-				room2.style.background = 'transparent';
-			}
-			
+
+			img.src = "css/image/away.svg";
+			room.style.background = 'red';
+			room.style.borderRadius = '25px'
+			document.getElementById('alert').play();
+		} else {
+			img.src = "css/image/bed.svg";
+			room.style.background = 'transparent';
 		}
 		socket.emit('accelData', "got accelData");
 	});
+
+	function getPatient() {
+
+			var xhr = new XMLHttpRequest();
+			var url = "http://localhost:3000/patient";
+		
+			xhr.onreadystatechange = function () {
+				if (this.readyState === 4 && this.status === 200) {
+					// console.log('hi');
+					var room;
+					// var json = JSON.parse(xhr.responseText);
+					// console.log(json.email + ", " + json.password);
+					var json = JSON.parse(this.responseText);
+					console.log(json);
+					for (var i = 0; i < json.length; i++) {
+						room = document.getElementById('tooltiptext'+json[i].roomID);
+						// console.log(room);
+						room.innerHTML = 'Name :' + json[i].name + '<br> Surname :'  + json[i].surname + '<br> Age :'  + json[i].age+ '<br> Disease :'  + json[i].disease+'<br> Doctor :' + json[i].doctor  +'<br> RoomID :' + json[i].roomID+ '<br> Sex :'  + json[i].sex ;
+					}
+					
+				}else{
+					console.log('error');
+	
+				}
+			};
+			xhr.open("GET", url, true);
+				 xhr.send();
+		}
+
+		var tooltips = document.getElementsByClassName('tooltiptext');
+
+			window.onmousemove = function (e) {
+				var x = (e.clientX + 20) + 'px',
+					y = (e.clientY + 20) + 'px';
+				for (var i = 0; i < tooltips.length; i++) {
+					tooltips[i].style.top = y;
+					tooltips[i].style.left = x;
+				}
+
+			};
 </script>

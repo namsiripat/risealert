@@ -36,7 +36,7 @@ app.get('/patient', function (req, res) {
     var query = { sort: { name: 1 } }
     User.find({}, null, query, function(err, user){
         if(err) throw err
-        //console.log(user)
+        console.log(user)
         res.json(user)
     })
 })
