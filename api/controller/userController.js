@@ -4,13 +4,14 @@ const app			= express()
 const server		= require('http').Server(app)
 const io			= require('socket.io')(server)
 const mongoose      = require('mongoose')
-const User = mongoose.model('Users')
+const User          = mongoose.model('Users')
+const Alert         = mongoose.model('Alerts')
 
-exports.getStartPage = (req, res) => {
+exports.getIndex = (req, res) => {
     res.sendFile(__dirname + '/index.html')
 }
 
-exports.getAllPatient = (req, res) => {
+exports.getPatient = (req, res) => {
     let query = { sort: { name: 1 } }
     User.find({}, null, query, function(err, user){
         if(err) throw err
@@ -18,7 +19,7 @@ exports.getAllPatient = (req, res) => {
     })
 }
 
-exports.createNewPatient = (req, res) => {
+exports.createPatient = (req, res) => {
     User.findOneAndUpdate(
         { roomID: req.body.roomID },
         { $set: req.body },
@@ -48,7 +49,34 @@ exports.getSocketConnection = (req, res) => {
             status: 'normal'
         })
     }, 11000)
+    Alert.findOneAndUpdate({
+        roomID: req.params.id
+    }, {
+        $inc: {
+            count: 1
+        }
+    }, (err, data) => {
+        if (data === null) {
+            let alert = new Alert({
+                roomID: req.params.id,
+                count: 1
+            })
+            alert.save(function(err, user){
+                if(err) throw err
+                console.log(user)
+                // res.status(200).json(user)
+            })
+        }
+    })
     res.sendStatus(200)
+}
+
+exports.getAlert = (req, res) => {
+    let query = { sort: { roomID: 1 } }
+    Alert.find({}, null, query, function(err, alert){
+        if(err) throw err
+        res.json(alert)
+    })
 }
 
 io.on('connection', function (socket) {

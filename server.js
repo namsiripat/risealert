@@ -7,6 +7,7 @@ const mongoose		= require('mongoose')
 
 // eslint-disable-next-line
 const userModel     = require('./api/models/userModel')
+const alertModel     = require('./api/models/alertModel')
 
 // connect to database
 mongoose.Promise = global.Promise
