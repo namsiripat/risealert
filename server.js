@@ -1,13 +1,22 @@
 const express		= require('express')
 const app			= express()
 const server		= require('http').Server(app)
+const io			= require('socket.io')(server)
 const bodyParser	= require('body-parser')
 const path			= require('path')
 const mongoose		= require('mongoose')
 
 // eslint-disable-next-line
 const userModel     = require('./api/models/userModel')
+// eslint-disable-next-line
 const alertModel     = require('./api/models/alertModel')
+
+global.io = io
+io.on('connection', function (socket) {
+    socket.on('accelData', function (data) {
+        console.log(data)
+    })
+})
 
 // connect to database
 mongoose.Promise = global.Promise

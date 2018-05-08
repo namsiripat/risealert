@@ -1,8 +1,4 @@
 'use strict'
-const express		= require('express')
-const app			= express()
-const server		= require('http').Server(app)
-const io			= require('socket.io')(server)
 const mongoose      = require('mongoose')
 const User          = mongoose.model('Users')
 const Alert         = mongoose.model('Alerts')
@@ -42,9 +38,9 @@ exports.getSocketConnection = (req, res) => {
         id: req.params.id,
         status: 'error'
     }
-    io.emit('accelData', object)
+    global.io.emit('accelData', object)
     setTimeout(function () {
-        io.emit('accelData', {
+        global.io.emit('accelData', {
             id: req.params.id,
             status: 'normal'
         })
@@ -78,9 +74,3 @@ exports.getAlert = (req, res) => {
         res.json(alert)
     })
 }
-
-io.on('connection', function (socket) {
-    socket.on('accelData', function (data) {
-        console.log(data)
-    })
-})
